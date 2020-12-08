@@ -64,7 +64,6 @@ public class registration extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Registration"));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Course Registration");
 
         add.setText("ADD");
         add.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +134,7 @@ public class registration extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
@@ -273,7 +272,7 @@ public class registration extends javax.swing.JFrame {
             txtCourse.setText("");
             txtName.requestFocus();          
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Record Not Added");
+            JOptionPane.showMessageDialog(this,"Cannot add record");
             Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -285,7 +284,10 @@ public class registration extends javax.swing.JFrame {
         
         DefaultTableModel Df = (DefaultTableModel)display.getModel();
         int selectedRow = display.getSelectedRow();
-        
+        if(selectedRow < 0){
+            JOptionPane.showMessageDialog(this,"Record not selected");
+        }
+        else{
         try {
             int id = Integer.parseInt(Df.getValueAt(selectedRow, 0).toString());
             int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete?","warning",JOptionPane.YES_NO_OPTION);
@@ -299,7 +301,7 @@ public class registration extends javax.swing.JFrame {
             insert.setInt(1, id);
             insert.executeUpdate();
             
-            JOptionPane.showMessageDialog(this,"Record updated");
+            JOptionPane.showMessageDialog(this,"Record successfully deleted");
             table_update();
             
             txtName.setText("");
@@ -308,8 +310,9 @@ public class registration extends javax.swing.JFrame {
             txtName.requestFocus();
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Record Not updated");
+            JOptionPane.showMessageDialog(this,"Cannot delete record");
             Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }//GEN-LAST:event_deleteActionPerformed
 
@@ -328,7 +331,10 @@ public class registration extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel Df = (DefaultTableModel)display.getModel();
         int selectedRow = display.getSelectedRow();
-        
+        if(selectedRow < 0){
+            JOptionPane.showMessageDialog(this,"Record not selected");
+        }
+        else{
         try {
             int id = Integer.parseInt(Df.getValueAt(selectedRow, 0).toString());
             String name = txtName.getText();
@@ -355,7 +361,8 @@ public class registration extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(this,"Record Not updated");
             Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+        }  
+        }
     }//GEN-LAST:event_editActionPerformed
 
     /**
@@ -399,16 +406,11 @@ public class registration extends javax.swing.JFrame {
     private javax.swing.JTable display;
     private javax.swing.JButton edit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtCourse;
     private javax.swing.JTextField txtMobile;
