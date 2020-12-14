@@ -175,6 +175,12 @@ public class registration extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(display);
+        if (display.getColumnModel().getColumnCount() > 0) {
+            display.getColumnModel().getColumn(0).setHeaderValue("Id");
+            display.getColumnModel().getColumn(1).setHeaderValue("Name");
+            display.getColumnModel().getColumn(2).setHeaderValue("Mobile");
+            display.getColumnModel().getColumn(3).setHeaderValue("Course");
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
