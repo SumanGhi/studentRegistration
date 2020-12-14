@@ -252,16 +252,19 @@ public class registration extends javax.swing.JFrame {
         String name = txtName.getText();
         String mobile = txtMobile.getText();
         String course = txtCourse.getText();
-        
+        String Name = name.substring(0,1).toUpperCase()+name.substring(1);
+        String Course = course.substring(0,1).toUpperCase()+course.substring(1);
 
-        try { 
+        try {
+            if(mobile.length()==10&&name.length()>2&&course.length()>=4){
+            
             Class.forName("com.mysql.jdbc.Driver");
             
             con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","Suman123");
             insert = con1.prepareStatement("insert into registration(name, mobile,course)values(?,?,?)");
-            insert.setString(1, name);
+            insert.setString(1, Name);
             insert.setString(2, mobile);
-            insert.setString(3, course);
+            insert.setString(3, Course);
             insert.executeUpdate();
             
             JOptionPane.showMessageDialog(this,"Record Added");
@@ -270,7 +273,19 @@ public class registration extends javax.swing.JFrame {
             txtName.setText("");
             txtMobile.setText("");
             txtCourse.setText("");
-            txtName.requestFocus();          
+            txtName.requestFocus();
+            }
+            else{
+                if(name.length()<3){
+                    JOptionPane.showMessageDialog(this, "invalid name(must be min 3 character)");
+                }
+                else if(mobile.length()!=10){
+                    JOptionPane.showMessageDialog(this, "invalid mobile no.(enter 10 digit no.)");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "invalid course");
+                }
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(this,"Cannot add record");
             Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
@@ -340,14 +355,17 @@ public class registration extends javax.swing.JFrame {
             String name = txtName.getText();
             String mobile = txtMobile.getText();
             String course = txtCourse.getText();
+            String Name = name.substring(0,1).toUpperCase()+name.substring(1);
+            String Course = course.substring(0,1).toUpperCase()+course.substring(1);
             
+            if(mobile.length()==10&&name.length()>2&&course.length()>=4){
             Class.forName("com.mysql.jdbc.Driver");
             
             con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","Suman123");
             insert = con1.prepareStatement("update registration set name=?, mobile=?, course=? where id=?");
-            insert.setString(1, name);
+            insert.setString(1, Name);
             insert.setString(2, mobile);
-            insert.setString(3, course);
+            insert.setString(3, Course);
             insert.setInt(4, id);
             insert.executeUpdate();
             
@@ -357,7 +375,19 @@ public class registration extends javax.swing.JFrame {
             txtName.setText("");
             txtMobile.setText("");
             txtCourse.setText("");
-            txtName.requestFocus();          
+            txtName.requestFocus();
+            }
+            else{
+                if(name.length()<3){
+                    JOptionPane.showMessageDialog(this, "invalid name(must be min 3 character)");
+                }
+                else if(mobile.length()!=10){
+                    JOptionPane.showMessageDialog(this, "invalid mobile no.(enter 10 digit no.)");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "invalid course");
+                }
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(this,"Record Not updated");
             Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
