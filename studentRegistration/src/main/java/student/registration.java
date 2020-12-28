@@ -5,11 +5,11 @@
  */
 package student;
 
+import static java.awt.event.KeyEvent.VK_BACK_SPACE;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -29,7 +29,7 @@ public class registration extends javax.swing.JFrame {
     public registration() {
         initComponents();
         table_update();
-        
+
     }
 
     /**
@@ -53,6 +53,8 @@ public class registration extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         txtMobile = new javax.swing.JTextField();
         txtCourse = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtRollNo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         display = new javax.swing.JTable();
 
@@ -98,6 +100,14 @@ public class registration extends javax.swing.JFrame {
             }
         });
 
+        txtMobile.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMobileKeyPressed(evt);
+            }
+        });
+
+        jLabel2.setText("Roll no :");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -105,34 +115,39 @@ public class registration extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtName)
-                            .addComponent(txtMobile)
-                            .addComponent(txtCourse)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRollNo)
+                    .addComponent(txtName)
+                    .addComponent(txtMobile)
+                    .addComponent(txtCourse))
                 .addGap(20, 20, 20))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(add)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(delete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(edit)
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtRollNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -145,12 +160,12 @@ public class registration extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edit)
                     .addComponent(delete)
                     .addComponent(add))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         display.setModel(new javax.swing.table.DefaultTableModel(
@@ -158,7 +173,7 @@ public class registration extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Mobile", "Course"
+                "     Roll No.", "     Name", "     Mobile", "     Course"
             }
         ) {
             Class[] types = new Class [] {
@@ -176,10 +191,7 @@ public class registration extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(display);
         if (display.getColumnModel().getColumnCount() > 0) {
-            display.getColumnModel().getColumn(0).setHeaderValue("Id");
-            display.getColumnModel().getColumn(1).setHeaderValue("Name");
-            display.getColumnModel().getColumn(2).setHeaderValue("Mobile");
-            display.getColumnModel().getColumn(3).setHeaderValue("Course");
+            display.getColumnModel().getColumn(0).setPreferredWidth(8);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -220,80 +232,105 @@ public class registration extends javax.swing.JFrame {
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
-        Connection con1;
-        PreparedStatement insert;
+    Connection con1;
+    PreparedStatement insert;
+
+    private void check_table() throws ClassNotFoundException, SQLException{
         
-        private void table_update(){
-            int c;
-            
-            try { 
-            Class.forName("com.mysql.jdbc.Driver");
-            
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","Suman123");
-            insert = con1.prepareStatement("select * from registration");
+        String rollNo = txtRollNo.getText();
+        int roll = Integer.parseInt(txtRollNo.getText());
+        
+        Class.forName("com.mysql.jdbc.Driver");
+
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "Suman123");
+            insert = con1.prepareStatement("select rollNo from registration where rollNo=?");
+            insert.setString(1, rollNo);
             ResultSet rs = insert.executeQuery();
-            ResultSetMetaData Rss = rs.getMetaData();
-            c = Rss.getColumnCount();
+            JOptionPane.showMessageDialog(this, rs.getInt("rollNo"));
+            if(rs.getInt("rollNo")==roll){
+                JOptionPane.showMessageDialog(this, "Duplicate roll no.");
+            }
             
-            DefaultTableModel Df = (DefaultTableModel)display.getModel();
+    }
+    
+    private void table_update() {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "Suman123");
+            insert = con1.prepareStatement("select rollNo,name,mobile,course from registration");
+            ResultSet rs = insert.executeQuery();
+
+            DefaultTableModel Df = (DefaultTableModel) display.getModel();
             Df.setRowCount(0);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Vector v2 = new Vector();
-                    v2.add(rs.getInt("id"));
-                    v2.add(rs.getString("name"));
-                    v2.add(rs.getString("mobile"));
-                    v2.add(rs.getString("course"));
+                v2.add(rs.getInt("rollNo"));
+                v2.add(rs.getString("name"));
+                v2.add(rs.getString("mobile"));
+                v2.add(rs.getString("course"));
                 Df.addRow(v2);
-                
-            }          
+
+            }
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Record Not selected");
+            JOptionPane.showMessageDialog(this, "Record Not displayed");
             Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }
-        
+    }
+
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
         String name = txtName.getText();
         String mobile = txtMobile.getText();
         String course = txtCourse.getText();
-        String Name = name.substring(0,1).toUpperCase()+name.substring(1);
-        String Course = course.substring(0,1).toUpperCase()+course.substring(1);
+        String rollNo = txtRollNo.getText();
 
         try {
-            if(mobile.length()==10&&name.length()>2&&course.length()>=4){
-            
-            Class.forName("com.mysql.jdbc.Driver");
-            
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","Suman123");
-            insert = con1.prepareStatement("insert into registration(name, mobile,course)values(?,?,?)");
-            insert.setString(1, Name);
-            insert.setString(2, mobile);
-            insert.setString(3, Course);
-            insert.executeUpdate();
-            
-            JOptionPane.showMessageDialog(this,"Record Added");
-            table_update();
-            
-            txtName.setText("");
-            txtMobile.setText("");
-            txtCourse.setText("");
-            txtName.requestFocus();
-            }
-            else{
-                if(name.length()<3){
+//            check_table();
+            if (mobile.length() == 10 && name.length() > 2 && course.length() >= 4 && rollNo.length() != 0) {
+
+                String Name = name.substring(0, 1).toUpperCase() + name.substring(1);
+                String Course = course.substring(0, 1).toUpperCase() + course.substring(1);
+
+                Class.forName("com.mysql.jdbc.Driver");
+
+                con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "Suman123");
+                insert = con1.prepareStatement("insert into registration(name, mobile,course,rollNo)values(?,?,?,?)");
+                insert.setString(1, Name);
+                insert.setString(2, mobile);
+                insert.setString(3, Course);
+                insert.setString(4, rollNo);
+                insert.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "Record Added");
+                table_update();
+
+                txtRollNo.setText("");
+                txtName.setText("");
+                txtMobile.setText("");
+                txtCourse.setText("");
+                
+                txtRollNo.requestFocus();
+            } else {
+                if (rollNo.length()==0){
+                    JOptionPane.showMessageDialog(this, "invalid rollNo.");
+                    txtRollNo.requestFocusInWindow();
+                } else if (name.length() < 3) {
                     JOptionPane.showMessageDialog(this, "invalid name(must be min 3 character)");
-                }
-                else if(mobile.length()!=10){
+                    txtName.requestFocusInWindow();
+                } else if (mobile.length() != 10) {
                     JOptionPane.showMessageDialog(this, "invalid mobile no.(enter 10 digit no.)");
-                }
-                else{
+                    txtMobile.requestFocusInWindow();
+                } 
+                else {
                     JOptionPane.showMessageDialog(this, "invalid course");
+                    txtCourse.requestFocusInWindow();
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Cannot add record");
+            JOptionPane.showMessageDialog(this, "Cannot add record");
             Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -302,104 +339,117 @@ public class registration extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
-        
-        DefaultTableModel Df = (DefaultTableModel)display.getModel();
+
+        DefaultTableModel Df = (DefaultTableModel) display.getModel();
         int selectedRow = display.getSelectedRow();
-        if(selectedRow < 0){
-            JOptionPane.showMessageDialog(this,"Record not selected");
-        }
-        else{
-        try {
-            int id = Integer.parseInt(Df.getValueAt(selectedRow, 0).toString());
-            int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete?","warning",JOptionPane.YES_NO_OPTION);
-            
-            if(dialogResult == JOptionPane.YES_OPTION){
-             
-            Class.forName("com.mysql.jdbc.Driver");
-            
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","Suman123");
-            insert = con1.prepareStatement("delete from registration where id=?");
-            insert.setInt(1, id);
-            insert.executeUpdate();
-            
-            JOptionPane.showMessageDialog(this,"Record successfully deleted");
-            table_update();
-            
-            txtName.setText("");
-            txtMobile.setText("");
-            txtCourse.setText("");
-            txtName.requestFocus();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Record not selected");
+        } else {
+            try {
+                int rollNo = Integer.parseInt(Df.getValueAt(selectedRow, 0).toString());
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete?", "warning", JOptionPane.YES_NO_OPTION);
+
+                if (dialogResult == JOptionPane.YES_OPTION) {
+
+                    Class.forName("com.mysql.jdbc.Driver");
+
+                    con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "Suman123");
+                    insert = con1.prepareStatement("delete from registration where rollNo=?");
+                    insert.setInt(1, rollNo);
+                    insert.executeUpdate();
+
+                    JOptionPane.showMessageDialog(this, "Record successfully deleted");
+                    table_update();
+
+                    txtRollNo.setText("");
+                    txtName.setText("");
+                    txtMobile.setText("");
+                    txtCourse.setText("");
+                    txtRollNo.requestFocus();
+                }
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Cannot delete record");
+                Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Cannot delete record");
-            Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
-        }
         }
     }//GEN-LAST:event_deleteActionPerformed
 
     private void displayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel Df = (DefaultTableModel)display.getModel();
+        DefaultTableModel Df = (DefaultTableModel) display.getModel();
         int selectedRow = display.getSelectedRow();
-        
+
+        txtRollNo.setText(Df.getValueAt(selectedRow, 0).toString());
         txtName.setText(Df.getValueAt(selectedRow, 1).toString());
         txtMobile.setText(Df.getValueAt(selectedRow, 2).toString());
         txtCourse.setText(Df.getValueAt(selectedRow, 3).toString());
-        
+
     }//GEN-LAST:event_displayMouseClicked
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel Df = (DefaultTableModel)display.getModel();
+        DefaultTableModel Df = (DefaultTableModel) display.getModel();
         int selectedRow = display.getSelectedRow();
-        if(selectedRow < 0){
-            JOptionPane.showMessageDialog(this,"Record not selected");
-        }
-        else{
-        try {
-            int id = Integer.parseInt(Df.getValueAt(selectedRow, 0).toString());
-            String name = txtName.getText();
-            String mobile = txtMobile.getText();
-            String course = txtCourse.getText();
-            String Name = name.substring(0,1).toUpperCase()+name.substring(1);
-            String Course = course.substring(0,1).toUpperCase()+course.substring(1);
-            
-            if(mobile.length()==10&&name.length()>2&&course.length()>=4){
-            Class.forName("com.mysql.jdbc.Driver");
-            
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","Suman123");
-            insert = con1.prepareStatement("update registration set name=?, mobile=?, course=? where id=?");
-            insert.setString(1, Name);
-            insert.setString(2, mobile);
-            insert.setString(3, Course);
-            insert.setInt(4, id);
-            insert.executeUpdate();
-            
-            JOptionPane.showMessageDialog(this,"Record updated");
-            table_update();
-            
-            txtName.setText("");
-            txtMobile.setText("");
-            txtCourse.setText("");
-            txtName.requestFocus();
-            }
-            else{
-                if(name.length()<3){
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Record not selected");
+        } else {
+            try {
+                int rollNo = Integer.parseInt(Df.getValueAt(selectedRow, 0).toString());
+                String name = txtName.getText();
+                String mobile = txtMobile.getText();
+                String course = txtCourse.getText();
+                String Name = name.substring(0, 1).toUpperCase() + name.substring(1);
+                String Course = course.substring(0, 1).toUpperCase() + course.substring(1);
+
+                if (mobile.length() == 10 && name.length() > 2 && course.length() >= 4) {
+                    Class.forName("com.mysql.jdbc.Driver");
+
+                    con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "Suman123");
+                    insert = con1.prepareStatement("update registration set name=?, mobile=?, course=? where rollNo=?");
+                    insert.setString(1, Name);
+                    insert.setString(2, mobile);
+                    insert.setString(3, Course);
+                    insert.setInt(4, rollNo);
+                    insert.executeUpdate();
+
+                    JOptionPane.showMessageDialog(this, "Record updated");
+                    table_update();
+
+                    txtRollNo.setText("");
+                    txtName.setText("");
+                    txtMobile.setText("");
+                    txtCourse.setText("");
+                    txtRollNo.requestFocus();
+                } else {
+                if (name.length() < 3) {
                     JOptionPane.showMessageDialog(this, "invalid name(must be min 3 character)");
-                }
-                else if(mobile.length()!=10){
+                    txtName.requestFocusInWindow();
+                } else if (mobile.length() != 10) {
                     JOptionPane.showMessageDialog(this, "invalid mobile no.(enter 10 digit no.)");
-                }
-                else{
+                    txtMobile.requestFocusInWindow();
+                } else {
                     JOptionPane.showMessageDialog(this, "invalid course");
+                    txtCourse.requestFocusInWindow();
                 }
             }
-        } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Record Not updated");
-            Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Record Not updated");
+                Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_editActionPerformed
+
+    private void txtMobileKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMobileKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9' || evt.getKeyChar()== VK_BACK_SPACE){
+            txtMobile.setEditable(true);
+        }
+        else{
+            txtMobile.setEditable(false);
+            txtMobile.requestFocusInWindow();
+        }
+        
+    }//GEN-LAST:event_txtMobileKeyPressed
 
     /**
      * @param args the command line arguments
@@ -429,10 +479,8 @@ public class registration extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new registration().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new registration().setVisible(true);
         });
     }
 
@@ -442,6 +490,7 @@ public class registration extends javax.swing.JFrame {
     private javax.swing.JTable display;
     private javax.swing.JButton edit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -451,5 +500,6 @@ public class registration extends javax.swing.JFrame {
     private javax.swing.JTextField txtCourse;
     private javax.swing.JTextField txtMobile;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtRollNo;
     // End of variables declaration//GEN-END:variables
 }
