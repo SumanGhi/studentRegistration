@@ -29,6 +29,10 @@ public class registration extends javax.swing.JFrame {
     public registration() {
         initComponents();
         table_update();
+        add.setMnemonic('a');
+        delete.setMnemonic('d');
+        edit.setMnemonic('e');
+        refresh.setMnemonic('r');
 
     }
 
@@ -57,6 +61,13 @@ public class registration extends javax.swing.JFrame {
         txtRollNo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         display = new javax.swing.JTable();
+        refresh = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 1), new java.awt.Dimension(0, 1), new java.awt.Dimension(32767, 1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,6 +118,12 @@ public class registration extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Roll no :");
+
+        txtRollNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtRollNoKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -194,6 +211,56 @@ public class registration extends javax.swing.JFrame {
             display.getColumnModel().getColumn(0).setPreferredWidth(8);
         }
 
+        refresh.setText("Refresh");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setToolTipText("");
+
+        jLabel7.setText("Alt-a=add");
+
+        jLabel8.setText("Alt-d=delete");
+
+        jLabel9.setText("Alt-e=edit");
+
+        jLabel10.setText("Alt-r=refresh");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -201,11 +268,18 @@ public class registration extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(refresh)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(279, Short.MAX_VALUE)
+                .addContainerGap(287, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(256, 256, 256))
         );
@@ -214,15 +288,17 @@ public class registration extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(44, 44, 44)))
-                .addGap(63, 63, 63))
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(refresh)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -235,24 +311,37 @@ public class registration extends javax.swing.JFrame {
     Connection con1;
     PreparedStatement insert;
 
-    private void check_table() throws ClassNotFoundException, SQLException{
-        
+    private String check_table() throws ClassNotFoundException, SQLException {
+
         String rollNo = txtRollNo.getText();
-        int roll = Integer.parseInt(txtRollNo.getText());
-        
+        String mobile = txtMobile.getText();
+
         Class.forName("com.mysql.jdbc.Driver");
 
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "Suman123");
-            insert = con1.prepareStatement("select rollNo from registration where rollNo=?");
-            insert.setString(1, rollNo);
-            ResultSet rs = insert.executeQuery();
-            JOptionPane.showMessageDialog(this, rs.getInt("rollNo"));
-            if(rs.getInt("rollNo")==roll){
-                JOptionPane.showMessageDialog(this, "Duplicate roll no.");
+        con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "Suman123");
+        insert = con1.prepareStatement("select count(rollNo) from registration where rollNo=?");
+        insert.setString(1, rollNo);
+        ResultSet rs = insert.executeQuery();
+        rs.next();
+        int countRoll = rs.getInt("count(rollNo)");
+        rs.close();
+        if (countRoll == 1) {
+            return "Roll";
+        } else {
+            insert = con1.prepareStatement("select count(mobile) from registration where mobile=?");
+            insert.setString(1, mobile);
+            ResultSet rss = insert.executeQuery();
+            rss.next();
+            int countMobile = rss.getInt("count(mobile)");
+            rss.close();
+            if (countMobile == 1) {
+                return "Mobile";
             }
-            
+        }
+        return "";
+
     }
-    
+
     private void table_update() {
 
         try {
@@ -286,10 +375,12 @@ public class registration extends javax.swing.JFrame {
         String mobile = txtMobile.getText();
         String course = txtCourse.getText();
         String rollNo = txtRollNo.getText();
+        
+        
 
         try {
-//            check_table();
-            if (mobile.length() == 10 && name.length() > 2 && course.length() >= 4 && rollNo.length() != 0) {
+            String check = check_table();
+            if (mobile.length() == 10 && name.length() > 2 && course.length() >= 4 && rollNo.length() != 0 && check == "") {
 
                 String Name = name.substring(0, 1).toUpperCase() + name.substring(1);
                 String Course = course.substring(0, 1).toUpperCase() + course.substring(1);
@@ -311,10 +402,14 @@ public class registration extends javax.swing.JFrame {
                 txtName.setText("");
                 txtMobile.setText("");
                 txtCourse.setText("");
-                
+
                 txtRollNo.requestFocus();
             } else {
-                if (rollNo.length()==0){
+                if (check == "Roll") {
+                    JOptionPane.showMessageDialog(this, "Duplicate roll no.");
+                } else if (check == "Mobile") {
+                    JOptionPane.showMessageDialog(this, "Duplicate Mobile no.");
+                } else if (rollNo.length() == 0) {
                     JOptionPane.showMessageDialog(this, "invalid rollNo.");
                     txtRollNo.requestFocusInWindow();
                 } else if (name.length() < 3) {
@@ -323,8 +418,7 @@ public class registration extends javax.swing.JFrame {
                 } else if (mobile.length() != 10) {
                     JOptionPane.showMessageDialog(this, "invalid mobile no.(enter 10 digit no.)");
                     txtMobile.requestFocusInWindow();
-                } 
-                else {
+                } else {
                     JOptionPane.showMessageDialog(this, "invalid course");
                     txtCourse.requestFocusInWindow();
                 }
@@ -395,6 +489,7 @@ public class registration extends javax.swing.JFrame {
         } else {
             try {
                 int rollNo = Integer.parseInt(Df.getValueAt(selectedRow, 0).toString());
+                String RollNo = txtRollNo.getText();
                 String name = txtName.getText();
                 String mobile = txtMobile.getText();
                 String course = txtCourse.getText();
@@ -405,11 +500,12 @@ public class registration extends javax.swing.JFrame {
                     Class.forName("com.mysql.jdbc.Driver");
 
                     con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "Suman123");
-                    insert = con1.prepareStatement("update registration set name=?, mobile=?, course=? where rollNo=?");
+                    insert = con1.prepareStatement("update registration set name=?, mobile=?, course=?,rollNo=? where rollNo=?");
                     insert.setString(1, Name);
                     insert.setString(2, mobile);
                     insert.setString(3, Course);
-                    insert.setInt(4, rollNo);
+                    insert.setString(4, RollNo);
+                    insert.setInt(5, rollNo);
                     insert.executeUpdate();
 
                     JOptionPane.showMessageDialog(this, "Record updated");
@@ -421,17 +517,17 @@ public class registration extends javax.swing.JFrame {
                     txtCourse.setText("");
                     txtRollNo.requestFocus();
                 } else {
-                if (name.length() < 3) {
-                    JOptionPane.showMessageDialog(this, "invalid name(must be min 3 character)");
-                    txtName.requestFocusInWindow();
-                } else if (mobile.length() != 10) {
-                    JOptionPane.showMessageDialog(this, "invalid mobile no.(enter 10 digit no.)");
-                    txtMobile.requestFocusInWindow();
-                } else {
-                    JOptionPane.showMessageDialog(this, "invalid course");
-                    txtCourse.requestFocusInWindow();
+                    if (name.length() < 3) {
+                        JOptionPane.showMessageDialog(this, "invalid name(must be min 3 character)");
+                        txtName.requestFocusInWindow();
+                    } else if (mobile.length() != 10) {
+                        JOptionPane.showMessageDialog(this, "invalid mobile no.(enter 10 digit no.)");
+                        txtMobile.requestFocusInWindow();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "invalid course");
+                        txtCourse.requestFocusInWindow();
+                    }
                 }
-            }
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Record Not updated");
                 Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
@@ -441,15 +537,37 @@ public class registration extends javax.swing.JFrame {
 
     private void txtMobileKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMobileKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9' || evt.getKeyChar()== VK_BACK_SPACE){
+        txtMobile.requestFocus();
+        if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9' || evt.getKeyChar() == VK_BACK_SPACE) {
             txtMobile.setEditable(true);
-        }
-        else{
+        } else {
             txtMobile.setEditable(false);
             txtMobile.requestFocusInWindow();
         }
-        
+
     }//GEN-LAST:event_txtMobileKeyPressed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        // TODO add your handling code here:
+        txtRollNo.setText("");
+        txtName.setText("");
+        txtMobile.setText("");
+        txtCourse.setText("");
+        txtRollNo.requestFocus();
+        
+        display.getSelectionModel().clearSelection();
+    }//GEN-LAST:event_refreshActionPerformed
+
+    private void txtRollNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRollNoKeyPressed
+        // TODO add your handling code here:
+        txtRollNo.requestFocus();
+        if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9' || evt.getKeyChar() == VK_BACK_SPACE) {
+            txtRollNo.setEditable(true);
+        } else {
+            txtRollNo.setEditable(false);
+            txtRollNo.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_txtRollNoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -489,14 +607,21 @@ public class registration extends javax.swing.JFrame {
     private javax.swing.JButton delete;
     private javax.swing.JTable display;
     private javax.swing.JButton edit;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton refresh;
     private javax.swing.JTextField txtCourse;
     private javax.swing.JTextField txtMobile;
     private javax.swing.JTextField txtName;
